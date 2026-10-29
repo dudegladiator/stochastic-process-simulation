@@ -1,0 +1,46 @@
+\documentclass[tikz,border=5pt]{standalone}
+\usepackage{pgfplots}
+\usepgfplotslibrary{groupplots}
+\pgfplotsset{compat=1.18}
+
+\begin{document}
+\begin{tikzpicture}
+\begin{groupplot}[
+  group style={group size=2 by 2, horizontal sep=1.5cm, vertical sep=1.6cm},
+  width=8.2cm,
+  height=5.6cm,
+  grid=major,
+  grid style={gray!20},
+  xlabel={Terminal value at $T=1$},
+  ylabel={Density},
+  tick label style={font=\small},
+  label style={font=\small},
+  title style={font=\bfseries\small},
+  legend style={font=\scriptsize, draw=none, fill=none},
+]
+
+\nextgroupplot[title={Brownian motion}, legend pos=north east]
+\addplot[ybar interval, fill=blue!30, draw=blue!55, mark=none] table[x=edge,y=empirical,col sep=comma] {data/brownian_distribution.csv};
+\addlegendentry{Simulation}
+\addplot[red!80!black, very thick, no marks] table[x=edge,y=theoretical,col sep=comma] {data/brownian_distribution.csv};
+\addlegendentry{Theory}
+
+\nextgroupplot[title={Geometric Brownian motion}]
+\addplot[ybar interval, fill=teal!30, draw=teal!60!black, mark=none] table[x=edge,y=empirical,col sep=comma] {data/gbm_distribution.csv};
+\addplot[red!80!black, very thick, no marks] table[x=edge,y=theoretical,col sep=comma] {data/gbm_distribution.csv};
+
+\nextgroupplot[title={Ornstein--Uhlenbeck process}]
+\addplot[ybar interval, fill=orange!35, draw=orange!70!black, mark=none] table[x=edge,y=empirical,col sep=comma] {data/ou_distribution.csv};
+\addplot[red!80!black, very thick, no marks] table[x=edge,y=theoretical,col sep=comma] {data/ou_distribution.csv};
+
+\nextgroupplot[
+  title={Vasicek short-rate model},
+  scaled x ticks=false,
+  xticklabel style={/pgf/number format/fixed,/pgf/number format/precision=2},
+]
+\addplot[ybar interval, fill=violet!30, draw=violet!70!black, mark=none] table[x=edge,y=empirical,col sep=comma] {data/vasicek_distribution.csv};
+\addplot[red!80!black, very thick, no marks] table[x=edge,y=theoretical,col sep=comma] {data/vasicek_distribution.csv};
+
+\end{groupplot}
+\end{tikzpicture}
+\end{document}

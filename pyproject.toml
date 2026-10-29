@@ -1,0 +1,9 @@
+[project]
+name = "financial-process-simulations"
+version = "0.1.0"
+description = "Reproducible simulations for a Financial Mathematics individual project"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.uv]
+package = false
